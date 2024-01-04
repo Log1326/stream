@@ -15,7 +15,7 @@ export const Recommended: React.FC<RecommendedProps> = ({ data }) => {
 		<div>
 			{showLabel && (
 				<div className='text-center mb-4 w-full'>
-					<p className='font-semibold text-muted-foreground'>
+					<p className='font-semibold text-muted-foreground animate-fade'>
 						Recommended
 					</p>
 				</div>
