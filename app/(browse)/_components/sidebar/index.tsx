@@ -1,15 +1,19 @@
+import { Following, FollowingSkeleton } from './following'
 import { Recommended, RecommendedSkeleton } from './recommended'
 import { Toggle, ToggleSkeleton } from './toggle'
 
 import { Wrapper } from './wrapper'
+import { followService } from '@/lib/follow-service'
 import { getRecommended } from '@/lib/recommended-service'
 
 export default async function SideBar() {
-	const data = await getRecommended()
+	const recommended = await getRecommended()
+	const following = await followService.getFollowedUser()
 	return (
 		<Wrapper>
 			<Toggle />
-			<Recommended data={data} />
+			<Following data={following} />
+			<Recommended data={recommended} />
 		</Wrapper>
 	)
 }
@@ -19,6 +23,7 @@ export const SidebarSkeleton = () => (
 		 bg-background border-r border-[#2D2E35] z-50`}
 	>
 		<ToggleSkeleton />
+		<FollowingSkeleton />
 		<RecommendedSkeleton />
 	</aside>
 )

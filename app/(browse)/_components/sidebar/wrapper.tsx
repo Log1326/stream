@@ -1,5 +1,6 @@
 'use client'
 
+import { FollowingSkeleton } from './following'
 import { PropsWithChildren } from 'react'
 import { RecommendedSkeleton } from './recommended'
 import { ToggleSkeleton } from './toggle'
@@ -20,6 +21,7 @@ export const Wrapper: React.FC<PropsWithChildren> = ({ children }) => {
 				)}
 			>
 				<ToggleSkeleton />
+				<FollowingSkeleton />
 				<RecommendedSkeleton />
 			</aside>
 		)

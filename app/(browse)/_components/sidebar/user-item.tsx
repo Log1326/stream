@@ -28,7 +28,12 @@ export const UserItem: React.FC<UserItemProps> = ({ user, isLive }) => {
 			)}
 		>
 			<Link href={href}>
-				<div className='flex items-center justify-around w-full gap-x-2'>
+				<div
+					className={cn(
+						'flex items-center justify-start w-full gap-x-2',
+						{ 'justify-between': isLive }
+					)}
+				>
 					<UserAvatar user={user} isLive={isLive} />
 					{!isCollapsed && (
 						<p className='truncate'>{user.username}</p>

@@ -2,7 +2,7 @@
 
 import { Follow, User } from '@prisma/client'
 
-import { followService } from '@/lib/follow-server'
+import { followService } from '@/lib/follow-service'
 import { revalidatePath } from 'next/cache'
 
 export async function onFollow(

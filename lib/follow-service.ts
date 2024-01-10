@@ -48,5 +48,19 @@ export const followService = {
 			where: { id: existingFollow.id },
 			include: { following: true }
 		})
+	},
+	async getFollowedUser(): Promise<(Follow & { following: User })[] | []> {
+		try {
+			const user = await getAuth()
+			return db.follow.findMany({
+				where: {
+					followerId: user.id,
+					following: { blocking: { none: { blockedId: user.id } } }
+				},
+				include: { following: true }
+			})
+		} catch (error) {
+			return []
+		}
 	}
 }

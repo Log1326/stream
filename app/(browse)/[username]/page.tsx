@@ -1,5 +1,6 @@
 import { Actions } from './_components/actions'
-import { followService } from '@/lib/follow-server'
+import { blockService } from '@/lib/block-service'
+import { followService } from '@/lib/follow-service'
 import { getUserByUsername } from '@/lib/user-service'
 import { notFound } from 'next/navigation'
 
@@ -10,12 +11,19 @@ export default async function PageUsername({ params: { username } }: Params) {
 	const user = await getUserByUsername(username)
 	if (!user) notFound()
 	const isFollowing = await followService.isFollowingUser(user.id)
+	const isBlock = await blockService.isBlockedByUser(user.id)
+	if (isBlock) notFound()
 	return (
 		<div className='flex flex-col gap-y-4 w-full'>
 			<p>{user.id}</p>
 			<p>{user.username}</p>
-			<p>{`${isFollowing}`}</p>
-			<Actions isFollowing={isFollowing} userId={user.id} />
+			<p>{`isFollowing:${isFollowing}`}</p>
+			<p>{`isBlock:${isBlock}`}</p>
+			<Actions
+				isFollowing={isFollowing}
+				isBlock={isBlock}
+				userId={user.id}
+			/>
 		</div>
 	)
 }
