@@ -9,3 +9,12 @@ export const getAuth = async (): Promise<User> => {
 	if (!user?.id) throw new Error('Not found user')
 	return user
 }
+export const getUserByUsername = async (username: string): Promise<User> => {
+	const authUser = await currentUser()
+	if (!username) throw new Error('There is no username')
+	if (!authUser || !authUser.username) throw new Error('Unauthorized')
+	const userDB = await db.user.findUnique({ where: { username } })
+	if (!userDB) throw new Error('User not found')
+	if (authUser.username !== userDB.username) throw new Error('Unauthorized')
+	return userDB
+}

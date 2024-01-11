@@ -12,18 +12,13 @@ export default async function PageUsername({ params: { username } }: Params) {
 	if (!user) notFound()
 	const isFollowing = await followService.isFollowingUser(user.id)
 	const isBlock = await blockService.isBlockedByUser(user.id)
-	if (isBlock) notFound()
 	return (
 		<div className='flex flex-col gap-y-4 w-full'>
 			<p>{user.id}</p>
 			<p>{user.username}</p>
 			<p>{`isFollowing:${isFollowing}`}</p>
 			<p>{`isBlock:${isBlock}`}</p>
-			<Actions
-				isFollowing={isFollowing}
-				isBlock={isBlock}
-				userId={user.id}
-			/>
+			<Actions isFollowing={isFollowing} userId={user.id} />
 		</div>
 	)
 }

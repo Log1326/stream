@@ -22,7 +22,7 @@ export const Hint: React.FC<HintProps> = ({
 }) => {
 	return (
 		<TooltipProvider>
-			<Tooltip delayDuration={0}>
+			<Tooltip delayDuration={150}>
 				<TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
 				<TooltipContent
 					className='text-black bg-white'
