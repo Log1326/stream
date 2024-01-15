@@ -29,7 +29,7 @@ export const Hint: React.FC<HintProps> = ({
 					side={side}
 					align={align}
 				>
-					<p className='font-semibold'>{label}</p>
+					<div className='font-semibold'>{label}</div>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

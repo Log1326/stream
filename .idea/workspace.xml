@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6796660-1b69-4e5a-9ec7-5d731ab9e20c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/actions/follow.ts" beforeDir="false" afterPath="$PROJECT_DIR$/actions/follow.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(browse)/[username]/_components/actions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(browse)/[username]/_components/actions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/auth-service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/auth-service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/follow-server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/follow-server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,31 +53,12 @@
       <updated>1704290790069</updated>
       <workItem from="1704290791861" duration="112000" />
       <workItem from="1704355062990" duration="60000" />
+      <workItem from="1705137593716" duration="16000" />
+      <workItem from="1705153787432" duration="11000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/follow-server.ts</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/follow-server.ts</url>
-          <line>20</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/lib/follow-server.ts</url>
-          <line>11</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
