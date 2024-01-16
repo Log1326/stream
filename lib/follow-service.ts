@@ -1,4 +1,4 @@
-import { Follow, User } from '@prisma/client'
+import { Follow, Stream, User } from '@prisma/client'
 
 import { db } from './db'
 import { getAuth } from './auth-service'
@@ -49,7 +49,12 @@ export const followService = {
 			include: { following: true }
 		})
 	},
-	async getFollowedUser(): Promise<(Follow & { following: User })[] | []> {
+	async getFollowedUser(): Promise<
+		| (Follow & {
+				following: User & { stream: Pick<Stream, 'isLive'> | null }
+		  })[]
+		| []
+	> {
 		try {
 			const user = await getAuth()
 			return db.follow.findMany({
@@ -57,7 +62,11 @@ export const followService = {
 					followerId: user.id,
 					following: { blocking: { none: { blockedId: user.id } } }
 				},
-				include: { following: true }
+				include: {
+					following: {
+						include: { stream: { select: { isLive: true } } }
+					}
+				}
 			})
 		} catch (error) {
 			return []

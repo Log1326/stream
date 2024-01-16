@@ -7,8 +7,9 @@ import { followService } from '@/lib/follow-service'
 import { getRecommended } from '@/lib/recommended-service'
 
 export default async function SideBar() {
-	const recommended = await getRecommended()
 	const following = await followService.getFollowedUser()
+	const recommended = await getRecommended()
+
 	return (
 		<Wrapper>
 			<Toggle />

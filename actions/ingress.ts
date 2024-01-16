@@ -1,6 +1,7 @@
 'use server'
 
 import {
+	type IngressInfo,
 	CreateIngressOptions,
 	IngressAudioEncodingPreset,
 	IngressClient,
@@ -21,7 +22,7 @@ const apiSecret = process.env.LIVE_KIT_API_SECRET_KEY as string
 const roomService = new RoomServiceClient(apiUrl, apiKey, apiSecret)
 const ingressClient = new IngressClient(apiUrl, apiKey, apiSecret)
 
-export const resetIngress = async (hostIdentity: string) => {
+export const resetIngress = async (hostIdentity: string): Promise<void> => {
 	const ingresses = await ingressClient.listIngress({
 		roomName: hostIdentity
 	})
@@ -37,7 +38,9 @@ export const resetIngress = async (hostIdentity: string) => {
 			await ingressClient.deleteIngress(ingress.ingressId)
 	}
 }
-export const createIngress = async (ingressType: IngressInput) => {
+export const createIngress = async (
+	ingressType: IngressInput
+): Promise<IngressInfo> => {
 	const userAuth = await getAuth()
 
 	await resetIngress(userAuth.id)

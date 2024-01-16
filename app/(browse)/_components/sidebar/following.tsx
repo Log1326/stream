@@ -11,6 +11,7 @@ interface FollowingProps {
 export const Following: React.FC<FollowingProps> = ({ data }) => {
 	const { isCollapsed } = useSidebar(state => state)
 	if (!data.length) return null
+
 	return (
 		<div>
 			{!isCollapsed && (
@@ -23,6 +24,7 @@ export const Following: React.FC<FollowingProps> = ({ data }) => {
 					<UserItem
 						key={follow.following.id}
 						user={follow.following}
+						isLive={follow.following.stream?.isLive}
 					/>
 				))}
 			</ul>

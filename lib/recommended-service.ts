@@ -1,7 +1,11 @@
+import { Stream, User } from '@prisma/client'
+
 import { db } from './db'
 import { getAuth } from './auth-service'
 
-export const getRecommended = async () => {
+export const getRecommended = async (): Promise<
+	(User & { stream: Pick<Stream, 'isLive'> | null })[]
+> => {
 	let userId
 	try {
 		const userAuth = await getAuth()
@@ -18,7 +22,12 @@ export const getRecommended = async () => {
 					{ NOT: { blocking: { some: { blockedId: userId } } } }
 				]
 			},
+			include: { stream: { select: { isLive: true } } },
 			orderBy: { createdAt: 'desc' }
 		})
-	else return db.user.findMany({ orderBy: { createdAt: 'desc' } })
+	else
+		return db.user.findMany({
+			orderBy: { createdAt: 'desc' },
+			include: { stream: { select: { isLive: true } } }
+		})
 }

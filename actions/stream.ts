@@ -6,7 +6,9 @@ import { getAuth } from '@/lib/auth-service'
 import { revalidatePath } from 'next/cache'
 import { streamService } from '@/lib/stream-service'
 
-export const updateStream = async (values: Partial<Stream>) => {
+export const updateStream = async (
+	values: Partial<Stream>
+): Promise<Stream> => {
 	try {
 		const userAuth = await getAuth()
 		const streamFromDB = await streamService.getStreamByUserId(userAuth.id)

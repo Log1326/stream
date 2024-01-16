@@ -1,12 +1,12 @@
 'use client'
 
+import { Stream, User } from '@prisma/client'
 import { UserItem, UserItemSkeleton } from './user-item'
 
-import { User } from '@prisma/client'
 import { useSidebar } from '@/store/use-sidebar'
 
 interface RecommendedProps {
-	data: User[]
+	data: (User & { stream: Pick<Stream, 'isLive'> | null })[]
 }
 export const Recommended: React.FC<RecommendedProps> = ({ data }) => {
 	const { isCollapsed } = useSidebar(state => state)
@@ -22,7 +22,11 @@ export const Recommended: React.FC<RecommendedProps> = ({ data }) => {
 			)}
 			<ul className='space-y-4 text-center'>
 				{data.map(user => (
-					<UserItem key={user.id} user={user} isLive={true} />
+					<UserItem
+						key={user.id}
+						user={user}
+						isLive={user.stream?.isLive}
+					/>
 				))}
 			</ul>
 		</div>
