@@ -12,8 +12,8 @@ import {
 
 import { TrackSource } from 'livekit-server-sdk/dist/proto/livekit_models'
 import { db } from '@/lib/db'
-import { getAuth } from '@/lib/auth-service'
 import { revalidatePath } from 'next/cache'
+import { authService } from '@/lib/auth-service'
 
 const apiUrl = process.env.LIVE_KIT_URL as string
 const apiKey = process.env.LIVE_KIT_API_KEY as string
@@ -41,7 +41,7 @@ export const resetIngress = async (hostIdentity: string): Promise<void> => {
 export const createIngress = async (
 	ingressType: IngressInput
 ): Promise<IngressInfo> => {
-	const userAuth = await getAuth()
+	const userAuth = await authService.getAuth()
 
 	await resetIngress(userAuth.id)
 
@@ -65,7 +65,10 @@ export const createIngress = async (
 		}
 	}
 
-	const ingress = await ingressClient.createIngress(ingressType, options)
+	const ingress: IngressInfo = await ingressClient.createIngress(
+		ingressType,
+		options
+	)
 	if (!ingress || !ingress.url || !ingress.streamKey)
 		throw new Error('Failed to create ingress')
 

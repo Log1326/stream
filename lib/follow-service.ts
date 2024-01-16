@@ -1,14 +1,14 @@
 import { Follow, Stream, User } from '@prisma/client'
 
+import { authService } from './auth-service'
 import { db } from './db'
-import { getAuth } from './auth-service'
 
 async function _findUniqueById(id: string): Promise<{
 	user: User
 	anotherUser: User
 	existingFollow: Follow | null
 }> {
-	const user = await getAuth()
+	const user = await authService.getAuth()
 	const anotherUser = await db.user.findUnique({ where: { id } })
 	if (!anotherUser) throw new Error('User not found')
 	const existingFollow = await db.follow.findFirst({
@@ -50,13 +50,17 @@ export const followService = {
 		})
 	},
 	async getFollowedUser(): Promise<
-		| (Follow & {
-				following: User & { stream: Pick<Stream, 'isLive'> | null }
-		  })[]
+		| Additional<
+				Follow & {
+					following: User & {
+						stream: Nullable<Pick<Stream, 'isLive'>>
+					}
+				}
+		  >[]
 		| []
 	> {
 		try {
-			const user = await getAuth()
+			const user = await authService.getAuth()
 			return db.follow.findMany({
 				where: {
 					followerId: user.id,

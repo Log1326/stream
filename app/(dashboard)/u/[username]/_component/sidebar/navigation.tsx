@@ -8,8 +8,8 @@ import {
 	Users
 } from 'lucide-react'
 import { NavItem, NavItemSkeleton } from './nav-item'
-import { useCallback, useMemo } from 'react'
 
+import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
 

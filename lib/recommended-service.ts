@@ -1,14 +1,14 @@
 import { Stream, User } from '@prisma/client'
 
+import { authService } from './auth-service'
 import { db } from './db'
-import { getAuth } from './auth-service'
 
 export const getRecommended = async (): Promise<
-	(User & { stream: Pick<Stream, 'isLive'> | null })[]
+	Additional<User & { stream: Nullable<Pick<Stream, 'isLive'>> }>[]
 > => {
 	let userId
 	try {
-		const userAuth = await getAuth()
+		const userAuth = await authService.getAuth()
 		userId = userAuth.id
 	} catch (error) {
 		userId = null

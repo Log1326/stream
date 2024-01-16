@@ -1,14 +1,14 @@
 import { Block, User } from '@prisma/client'
 
+import { authService } from './auth-service'
 import { db } from './db'
-import { getAuth } from './auth-service'
 
 type BlockedResponse = Block & { blocked: User }
 
 async function _getBlockData(
 	id: string
 ): Promise<{ userAuth: User; userDB: User }> {
-	const userAuth = await getAuth()
+	const userAuth = await authService.getAuth()
 	const userDB = await db.user.findUnique({
 		where: { id }
 	})
