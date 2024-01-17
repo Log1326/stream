@@ -1,11 +1,11 @@
 import { ConnectModal } from './_components/connect-modal'
 import { KeyCard } from './_components/key-card'
 import { UrlCard } from './_components/url-card'
-import { getAuth } from '@/lib/auth-service'
+import { authService } from '@/lib/auth-service'
 import { streamService } from '@/lib/stream-service'
 
 export default async function PageKeys() {
-	const userAuth = await getAuth()
+	const userAuth = await authService.getAuth()
 	const stream = await streamService.getStreamByUserId(userAuth.id)
 	return (
 		<>

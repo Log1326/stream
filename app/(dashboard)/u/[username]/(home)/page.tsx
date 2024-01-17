@@ -1,4 +1,4 @@
-import { StreamPlayer } from '../../../../../components/stream-player'
+import { StreamPlayer } from '@/components/stream-player'
 import { currentUser } from '@clerk/nextjs'
 import { userService } from '@/lib/user-service'
 

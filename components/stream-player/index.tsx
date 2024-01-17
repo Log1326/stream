@@ -3,7 +3,9 @@
 import { Stream, User } from '@prisma/client'
 
 import { IconMemo } from '@/components/Icon'
+import { LiveKitRoom } from '@livekit/components-react'
 import { Loader2 } from 'lucide-react'
+import { Video } from './video'
 import { useViewerToken } from '@/hooks/use-viewer.token'
 
 interface StreamPlayerProps {
@@ -11,6 +13,7 @@ interface StreamPlayerProps {
 	stream: Nullable<Stream>
 	isFollowing: boolean
 }
+const serverUrl = process.env.NEXT_PUBLIC_LIVE_KIT_WS_URL as string
 export const StreamPlayer: React.FC<StreamPlayerProps> = ({
 	stream,
 	user,
@@ -40,5 +43,13 @@ export const StreamPlayer: React.FC<StreamPlayerProps> = ({
 				</h1>
 			</div>
 		)
-	return <div>Stream is allowed</div>
+	return (
+		<>
+			<LiveKitRoom token={token} serverUrl={serverUrl} className='grid h-full'>
+				<div className=''>
+					<Video hostName={user.username} hostIdentity={user.id} />
+				</div>
+			</LiveKitRoom>
+		</>
+	)
 }
