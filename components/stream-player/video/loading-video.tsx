@@ -1,4 +1,4 @@
-import { IconMemo } from '../Icon'
+import { IconMemo } from '../../Icon'
 import { Loader } from 'lucide-react'
 
 interface LoadingVideoProps {

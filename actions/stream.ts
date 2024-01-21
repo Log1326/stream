@@ -1,8 +1,8 @@
 'use server'
 
 import { Stream } from '@prisma/client'
+import { authService } from '@/lib/auth-service'
 import { db } from '@/lib/db'
-import { getAuth } from '@/lib/auth-service'
 import { revalidatePath } from 'next/cache'
 import { streamService } from '@/lib/stream-service'
 
@@ -10,7 +10,7 @@ export const updateStream = async (
 	values: Partial<Stream>
 ): Promise<Stream> => {
 	try {
-		const userAuth = await getAuth()
+		const userAuth = await authService.getAuth()
 		const streamFromDB = await streamService.getStreamByUserId(userAuth.id)
 		if (!streamFromDB) throw new Error('Stream not found')
 		const validData = {

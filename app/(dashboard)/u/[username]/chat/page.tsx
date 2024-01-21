@@ -1,9 +1,9 @@
 import { ToggleCard } from './_components/toggle-card'
-import { getAuth } from '@/lib/auth-service'
+import { authService } from '@/lib/auth-service'
 import { streamService } from '@/lib/stream-service'
 
 export default async function ChatPage() {
-	const userAuth = await getAuth()
+	const userAuth = await authService.getAuth()
 	const stream = await streamService.getStreamByUserId(userAuth.id)
 	if (!stream) throw new Error('Stream not found')
 	return (

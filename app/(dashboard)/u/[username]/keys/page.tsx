@@ -8,8 +8,8 @@ export default async function PageKeys() {
 	const userAuth = await authService.getAuth()
 	const stream = await streamService.getStreamByUserId(userAuth.id)
 	return (
-		<>
-			<div className='flex justify-around items-center mb-4'>
+		<div className='p-6'>
+			<div className='flex justify-around items-center mb-10'>
 				<h1 className='text-2xl font-bold'>Keys & URLs</h1>
 				<ConnectModal />
 			</div>
@@ -17,6 +17,6 @@ export default async function PageKeys() {
 				<UrlCard value={stream?.serverUrl} />
 				<KeyCard value={stream?.streamKey} />
 			</div>
-		</>
+		</div>
 	)
 }

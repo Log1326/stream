@@ -1,3 +1,4 @@
+import { transform } from 'next/dist/build/swc'
 import type { Config } from 'tailwindcss'
 
 const config = {
@@ -12,15 +13,13 @@ const config = {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
-			screens: {
-				'2xl': '1400px'
-			}
+			padding: '2rem'
 		},
 		extend: {
 			transitionProperty: {
-				width: "width"
-			  },
+				width: 'width'
+			},
+
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -70,6 +69,10 @@ const config = {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' }
 				},
+				appear: {
+					'0%': { transform: 'translateX(250px)' },
+					'100%': { transform: 'translateX(0px)' }
+				},
 				fade: {
 					from: { opacity: '0' },
 					to: { opacity: '1' }
@@ -78,7 +81,8 @@ const config = {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				fade: 'fade 1s ease-in'
+				fade: 'fade 0.3s ease-in',
+				appear: 'appear 1s linear'
 			}
 		}
 	},

@@ -18,7 +18,7 @@ export const Container: React.FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<div
 			className={cn(
-				'flex-1 ml-60 p-4 transition-all ease-in-out duration-500',
+				'flex-1 ml-60 transition-all ease-in-out duration-500',
 				{ 'ml-20': isCollapsed }
 			)}
 		>

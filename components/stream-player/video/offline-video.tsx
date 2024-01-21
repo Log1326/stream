@@ -1,4 +1,4 @@
-import { IconMemo } from '../Icon'
+import { IconMemo } from '../../Icon'
 import { WifiOff } from 'lucide-react'
 
 interface OfflineVideoProps {

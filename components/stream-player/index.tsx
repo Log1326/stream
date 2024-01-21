@@ -1,11 +1,13 @@
 'use client'
 
+import { Chat, ChatSkeleton } from './chat'
 import { Stream, User } from '@prisma/client'
+import { Video, VideoSkeleton } from './video'
 
-import { IconMemo } from '@/components/Icon'
+import { ChatToggle } from './chat/chat-header/chat-toggle'
 import { LiveKitRoom } from '@livekit/components-react'
-import { Loader2 } from 'lucide-react'
-import { Video } from './video'
+import { cn } from '@/lib/utils'
+import { useChatSidebar } from '@/store/use-chat-sidebar'
 import { useViewerToken } from '@/hooks/use-viewer.token'
 
 interface StreamPlayerProps {
@@ -19,37 +21,61 @@ export const StreamPlayer: React.FC<StreamPlayerProps> = ({
 	user,
 	isFollowing
 }) => {
-	const { identity, name, token, isLoading, isPending } = useViewerToken(
+	const { identity, isLoading, isPending, name, token } = useViewerToken(
 		user.id
 	)
+	const { isCollapsed } = useChatSidebar(state => state)
 
-	if (isLoading)
-		return (
-			<div className='w-full h-full grid place-content-center'>
-				<IconMemo
-					IconView={Loader2}
-					size='xl'
-					className='animate-spin'
-				/>
-			</div>
-		)
-	if (!isLoading && isPending)
-		return (
-			<div className='w-full h-full grid place-content-center'>
-				<h1 className='font-semibold text-xl'>
-					Wait a minute.
-					<br />
-					Booting .. .
-				</h1>
-			</div>
-		)
+	if (isLoading && isPending) return <StreamPlayerSkeleton />
+
 	return (
 		<>
-			<LiveKitRoom token={token} serverUrl={serverUrl} className='grid h-full'>
-				<div className=''>
+			{isCollapsed && (
+				<div className='fixed top-20 right-2'>
+					<ChatToggle />
+				</div>
+			)}
+			<LiveKitRoom
+				token={token}
+				serverUrl={serverUrl}
+				className={cn(
+					`transition-all ease-out duration-500 h-full grid place-content-center
+					grid-cols-[2fr_0fr] lg:grid-cols-[2fr_1fr] 2xl:grid-cols-[4fr_2fr]`,
+					{
+						'lg:grid-cols-[2fr_0fr] 2xl:grid-cols-[6fr_0fr]':
+							isCollapsed
+					}
+				)}
+			>
+				<div className='space-y-4 overflow-y-auto hidden-scrollbar h-full w-full'>
 					<Video hostName={user.username} hostIdentity={user.id} />
+				</div>
+
+				<div className={cn('h-full', { hidden: isCollapsed })}>
+					<Chat
+						viewerName={name}
+						hostName={user.username}
+						hostIdentity={user.id}
+						isFollowing={isFollowing}
+						isChatEnabled={stream?.isChatEnabled}
+						isChatDelayed={stream?.isChatDelayed}
+						isChatFollowersOnly={stream?.isChatFollowersOnly}
+					/>
 				</div>
 			</LiveKitRoom>
 		</>
 	)
 }
+export const StreamPlayerSkeleton = () => (
+	<div
+		className={`transition-all ease-out duration-500 h-full grid 
+		grid-cols-[2fr_0fr] lg:grid-cols-[2fr_1fr] 2xl:grid-cols-[4fr_2fr]`}
+	>
+		<div className='space-y-4 overflow-y-auto hidden-scrollbar h-full'>
+			<VideoSkeleton />
+		</div>
+		<div className='h-full'>
+			<ChatSkeleton />
+		</div>
+	</div>
+)

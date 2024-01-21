@@ -10,6 +10,7 @@ import {
 import { LiveVideo } from './live-video'
 import { LoadingVideo } from './loading-video'
 import { OfflineVideo } from './offline-video'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface VideoProps {
 	hostName: string
@@ -29,5 +30,15 @@ export const Video: React.FC<VideoProps> = ({ hostIdentity, hostName }) => {
 	else if (!participant || tracks.length === 0)
 		content = <LoadingVideo label={connectionState} />
 	else content = <LiveVideo participant={participant} />
-	return <div className='grid place-content-center h-full'>{content}</div>
+	return (
+		<div className='grid place-content-center aspect-video group relative h-full'>
+			{content}
+		</div>
+	)
 }
+
+export const VideoSkeleton = () => (
+	<div className='aspect-video border-x border-background'>
+		<Skeleton className='h-full w-full rounded-none' />
+	</div>
+)
