@@ -17,3 +17,8 @@ export const stringToColor = (str: string): string => {
 	}
 	return color
 }
+export const getIsHost = (hostIdentity: string, viewerIdentity: string):boolean => {
+	const hostAsViewer = `host-${hostIdentity}`,
+		isHost = viewerIdentity === hostAsViewer
+	return isHost
+}

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { InfoModal } from './info-modal'
 import { Pencil } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
+import { getIsHost } from '@/lib/utils'
 
 interface InfoCardProps {
 	hostIdentity: string
@@ -16,8 +17,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({
 	name,
 	thumbnailUrl
 }) => {
-	const hostAsViewer = `host-${hostIdentity}`,
-		isHost = viewerIdentity === hostAsViewer
+	const isHost = getIsHost(hostIdentity, viewerIdentity)
 	if (!isHost) return null
 	return (
 		<div className='px-4 w-full mt-4'>
@@ -52,7 +52,10 @@ export const InfoCard: React.FC<InfoCardProps> = ({
 							Thumbnail
 						</h3>
 						{thumbnailUrl && (
-							<div className='relative aspect-video rounded-md overflow-hidden h-52 w-auto border border-white/10'>
+							<div
+								className={`relative aspect-video rounded-md 
+							overflow-hidden h-52 w-auto border border-white/10`}
+							>
 								<Image
 									fill
 									src={thumbnailUrl}

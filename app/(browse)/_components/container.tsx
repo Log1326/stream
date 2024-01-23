@@ -15,7 +15,7 @@ export const Container: React.FC<PropsWithChildren> = ({ children }) => {
 	}, [matcher, onCollapsed, onExpand])
 	return (
 		<div
-			className={cn('p-4 ml-60 transition-all ease-in-out duration-500', {
+			className={cn('ml-60 w-full transition-all ease-in-out duration-500', {
 				'ml-20': isCollapsed
 			})}
 		>

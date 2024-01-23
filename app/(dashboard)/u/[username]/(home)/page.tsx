@@ -14,13 +14,5 @@ export default async function PageHomeInnerDashboard({
 		userFromDB.externalUserId !== externalUser?.id ||
 		!userFromDB.stream
 	if (isChecked) throw new Error('Unauthorized')
-	return (
-		<div className='h-full'>
-			<StreamPlayer
-				user={userFromDB}
-				stream={userFromDB.stream}
-				isFollowing
-			/>
-		</div>
-	)
+	return <StreamPlayer user={userFromDB} isFollowing />
 }

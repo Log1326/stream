@@ -11,6 +11,7 @@ import { IconMemo } from '@/components/Icon'
 import { Skeleton } from '@/components/ui/skeleton'
 import { UserIcon } from 'lucide-react'
 import { VerifiedMark } from '@/components/verified-mark'
+import { getIsHost } from '@/lib/utils'
 
 interface VideoHeaderProps {
 	hostName: string
@@ -32,9 +33,9 @@ export const VideoHeader: React.FC<VideoHeaderProps> = props => {
 	const participants = useParticipants()
 	const participant = useRemoteParticipant(hostIdentity)
 	const isLive = Boolean(participant),
-		participantsLength = participants.length - 1,
-		hostViewer = `host-${hostIdentity}`,
-		isHost = viewerIdentity === hostViewer
+		participantsLength = participants.length - 1
+	const isHost = getIsHost(hostIdentity, viewerIdentity)
+
 	return (
 		<div
 			className={`flex flex-col border-t-2 lg:flex-row lg:items-center gap-y-4 lg:gap-y-0 items-start 

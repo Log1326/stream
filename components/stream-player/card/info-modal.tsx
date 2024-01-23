@@ -38,7 +38,7 @@ export const InfoModal: React.FC<InfoCardProps> = ({
 	const [isPending, reRender] = useTransition()
 	const { refresh } = useRouter()
 
-	const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		reRender(() => {
 			updateStream({ name: value })
@@ -78,7 +78,7 @@ export const InfoModal: React.FC<InfoCardProps> = ({
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Edit stream info</DialogTitle>
-					<form className='space-y-14'>
+					<form onSubmit={onSubmit} className='space-y-14'>
 						<div className='space-y-2'>
 							<Label>Name</Label>
 							<Input
@@ -103,7 +103,7 @@ export const InfoModal: React.FC<InfoCardProps> = ({
 										>
 											<Button
 												type='button'
-												variant='ghost'
+												variant='destructive'
 												disabled={isPending}
 												onClick={onRemove}
 												className='h-auto w-auto p-1.5'
@@ -140,7 +140,6 @@ export const InfoModal: React.FC<InfoCardProps> = ({
 								</Button>
 							</DialogClose>
 							<Button
-								onClick={onSubmit}
 								variant='primary'
 								type='submit'
 								disabled={isPending}

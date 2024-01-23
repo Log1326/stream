@@ -3,16 +3,23 @@ import { Stream, User } from '@prisma/client'
 import { db } from './db'
 
 export const userService = {
-	async getUserByUsername(
-		username: string
-	): Promise<Nullable<Additional<User & { stream: Nullable<Stream> }>>> {
-		const user = await db.user.findUnique({
+	async getUserByUsername(username: string): Promise<
+		Nullable<
+			Additional<
+				User & {
+					stream: Nullable<Stream>
+					_count: { followedBy: number }
+				}
+			>
+		>
+	> {
+		return db.user.findUnique({
 			where: { username },
 			include: {
-				stream: true
+				stream: true,
+				_count: { select: { followedBy: true } }
 			}
 		})
-		return user
 	},
 	async getUserById(
 		id: string
