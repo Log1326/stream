@@ -1,15 +1,16 @@
-import { User } from '@prisma/client'
-import { cva, type VariantProps } from 'class-variance-authority'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { cn } from '@/lib/utils'
+import { cva, type VariantProps } from 'class-variance-authority'
 import { LiveBadge } from './live-badge'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Skeleton } from './ui/skeleton'
 
 const avatarSizes = cva('', {
 	variants: {
 		size: {
 			default: 'h-8 w-8',
-			lg: 'h-14 w-14'
+			lg: 'h-14 w-14',
+			xl: 'h-20 w-20',
+			'2xl': 'h-32 w-32'
 		}
 	},
 	defaultVariants: {
@@ -17,12 +18,14 @@ const avatarSizes = cva('', {
 	}
 })
 interface UserAvatarProps extends VariantProps<typeof avatarSizes> {
-	user: User
+	username: string
+	imageUrl: string
 	isLive?: boolean
 	showBadge?: boolean
 }
 export const UserAvatar: React.FC<UserAvatarProps> = ({
-	user,
+	username,
+	imageUrl,
 	isLive,
 	showBadge,
 	size
@@ -36,15 +39,13 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
 					avatarSizes({ size })
 				)}
 			>
-				<AvatarImage src={user.imageUrl} className='object-cover' />
+				<AvatarImage src={imageUrl} className='object-cover' />
 				<AvatarFallback>
-					{`${user.username[0]} ${
-						user.username[user.username.length - 1]
-					}`}
+					{`${username?.[0]} ${username?.[username.length - 1]}`}
 				</AvatarFallback>
 			</Avatar>
 			{canShowBadge && (
-				<div className='absolute inset-x-0 top-6'>
+				<div className='absolute inset-x-0 top-10'>
 					<LiveBadge />
 				</div>
 			)}
@@ -53,6 +54,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
 }
 
 interface UserAvatarSkeletonProps extends VariantProps<typeof avatarSizes> {}
+
 export const UserAvatarSkeleton: React.FC<UserAvatarSkeletonProps> = ({
 	size
 }) => {

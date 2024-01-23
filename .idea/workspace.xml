@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6796660-1b69-4e5a-9ec7-5d731ab9e20c" name="Changes" comment="" />
+    <list default="true" id="a6796660-1b69-4e5a-9ec7-5d731ab9e20c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(browse)/_components/sidebar/user-item.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(browse)/_components/sidebar/user-item.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/stream-player/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/stream-player/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/user-avatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/user-avatar.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,19 +29,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/pavel/WebstormProjects/clones-react/video-twitch&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/pavel/WebstormProjects/clones-react/video-twitch/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/pavel/WebstormProjects/clones-react/video-twitch",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/home/pavel/WebstormProjects/clones-react/video-twitch/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -55,6 +65,7 @@
       <workItem from="1705153787432" duration="11000" />
       <workItem from="1705479666772" duration="13000" />
       <workItem from="1705829437545" duration="4000" />
+      <workItem from="1705923107055" duration="514000" />
     </task>
     <servers />
   </component>

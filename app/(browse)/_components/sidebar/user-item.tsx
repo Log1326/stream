@@ -34,7 +34,11 @@ export const UserItem: React.FC<UserItemProps> = ({ user, isLive }) => {
 						{ 'justify-between': isLive }
 					)}
 				>
-					<UserAvatar user={user} isLive={isLive} />
+					<UserAvatar
+						imageUrl={user.imageUrl}
+						username={user.username}
+						isLive={isLive}
+					/>
 					{!isCollapsed && (
 						<p className='truncate'>{user.username}</p>
 					)}

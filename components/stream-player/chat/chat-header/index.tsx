@@ -21,7 +21,7 @@ export const ChatHeader = () => {
 }
 
 export const ChatHeaderSkeleton = () => (
-	<div className='relative border-b mt-4 hidden md:block'>
+	<div className='relative border-b mt-4 hidden lg:block'>
 		<Skeleton className='absolute h-8 w-8 left-3 top-0' />
 		<Skeleton className='w-28 h-8 mb-4 mx-auto' />
 	</div>

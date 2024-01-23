@@ -5,19 +5,27 @@ import { authService } from '@/lib/auth-service'
 import { db } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
 import { streamService } from '@/lib/stream-service'
-
-export const updateStream = async (
-	values: Partial<Stream>
-): Promise<Stream> => {
+type PickStream = Partial<
+	Pick<
+		Stream,
+		| 'name'
+		| 'isChatEnabled'
+		| 'isChatDelayed'
+		| 'isChatFollowersOnly'
+		| 'thumbnailUrl'
+	>
+>
+export const updateStream = async (values: PickStream): Promise<Stream> => {
 	try {
 		const userAuth = await authService.getAuth()
 		const streamFromDB = await streamService.getStreamByUserId(userAuth.id)
 		if (!streamFromDB) throw new Error('Stream not found')
-		const validData = {
+		const validData: PickStream = {
 			name: values.name,
 			isChatEnabled: values.isChatEnabled,
 			isChatFollowersOnly: values.isChatFollowersOnly,
-			isChatDelayed: values.isChatDelayed
+			isChatDelayed: values.isChatDelayed,
+			thumbnailUrl: values.thumbnailUrl
 		}
 		const stream = await db.stream.update({
 			where: { id: streamFromDB.id },

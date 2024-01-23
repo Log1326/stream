@@ -98,7 +98,7 @@ export const Chat: React.FC<ChatProps> = props => {
 }
 
 export const ChatSkeleton = () => (
-	<div className='flex flex-col border-l border-b h-full border-2'>
+	<div className='flex flex-col border-l border-b h-full -border-1'>
 		<ChatHeaderSkeleton />
 		<ChatListSkeleton />
 		<ChatFormSkeleton />
