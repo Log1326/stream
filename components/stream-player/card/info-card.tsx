@@ -18,7 +18,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({
 	thumbnailUrl
 }) => {
 	const isHost = getIsHost(hostIdentity, viewerIdentity)
-	if (!isHost) return null
+	if (!isHost) return <div className='text-xl font-semibold text-center'>Not allow</div>
 	return (
 		<div className='px-4 w-full mt-4'>
 			<div className='rounded-xl bg-background'>

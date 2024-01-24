@@ -51,7 +51,9 @@ export const StreamPlayer: React.FC<StreamPlayerProps> = ({
 				token={token}
 				serverUrl={serverUrl}
 				className={cn(
-					`transition-all ease-out duration-500 h-full grid
+					`transition-all
+					hidden-scrollbar
+					 ease-out duration-500 h-full grid
 					grid-cols-1 lg:grid-cols-[2fr_1fr] 2xl:grid-cols-[4fr_2fr]`,
 					{
 						'lg:grid-cols-[2fr_0fr] 2xl:grid-cols-[6fr_0fr]':
@@ -104,7 +106,11 @@ export const StreamPlayer: React.FC<StreamPlayerProps> = ({
 					</Accordion>
 				</div>
 
-				<div className={cn('h-full', { hidden: isCollapsed })}>
+				<div
+					className={cn('h-full overflow-y-auto', {
+						hidden: isCollapsed
+					})}
+				>
 					<Chat
 						viewerName={name}
 						hostName={user.username}

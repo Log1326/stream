@@ -31,7 +31,7 @@ export const Video: React.FC<VideoProps> = ({ hostIdentity, hostName }) => {
 		content = <LoadingVideo label={connectionState} />
 	else content = <LiveVideo participant={participant} />
 	return (
-		<div className='grid place-content-center aspect-video group relative h-full'>
+		<div className='grid place-content-center group relative h-full'>
 			{content}
 		</div>
 	)

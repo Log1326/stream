@@ -6,7 +6,7 @@ interface OfflineVideoProps {
 }
 export const OfflineVideo: React.FC<OfflineVideoProps> = ({ username }) => {
 	return (
-		<div className='h-full flex flex-col space-y justify-center items-center'>
+		<div className='flex flex-col space-y justify-center items-center'>
 			<IconMemo IconView={WifiOff} />
 			<p className='text-muted-foreground'>{username} is offline</p>
 		</div>

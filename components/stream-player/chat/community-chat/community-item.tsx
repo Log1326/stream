@@ -1,11 +1,12 @@
-import { onBlock } from '@/actions/block'
-import { IconMemo } from '@/components/Icon'
-import { Hint } from '@/components/hint'
-import { Button } from '@/components/ui/button'
 import { cn, stringToColor } from '@/lib/utils'
+
+import { Button } from '@/components/ui/button'
+import { Hint } from '@/components/hint'
+import { IconMemo } from '@/components/Icon'
 import { MinusCircle } from 'lucide-react'
-import { useTransition } from 'react'
+import { onBlock } from '@/actions/block'
 import { toast } from 'sonner'
+import { useTransition } from 'react'
 
 interface CommunityItemProps {
 	hostName: string

@@ -27,7 +27,7 @@ export const LiveVideo: React.FC<LiveVideoProps> = ({ participant }) => {
 
 	return (
 		<div ref={refWrapper} className='relative h-full flex'>
-			<video ref={refVideo} width='100%' />
+			<video ref={refVideo} width='100%' height='100%' />
 			<div
 				className={`absolute top-0 h-full w-full opacity-0
              hover:opacity-100 hover:transition-all`}

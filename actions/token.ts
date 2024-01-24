@@ -6,9 +6,6 @@ import { blockService } from '@/lib/block-service'
 import { userService } from '@/lib/user-service'
 import { v4 } from 'uuid'
 
-const apiKey = process.env.LIVE_KIT_API_KEY as string
-const apiSecret = process.env.LIVE_KIT_API_SECRET_KEY as string
-
 export const createViewerToken = async (
 	hostIdentity: string
 ): Promise<string> => {
@@ -21,6 +18,7 @@ export const createViewerToken = async (
 		user = { id, username }
 	}
 	const host = await userService.getUserById(hostIdentity)
+
 	if (!host) throw new Error('User not found')
 	const isBlocked = await blockService.isBlockedByUser(host.id)
 	if (isBlocked) throw new Error('User is blocker')

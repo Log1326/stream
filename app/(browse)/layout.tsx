@@ -8,7 +8,7 @@ export default function LayoutBrowse({ children }: PropsWithChildren) {
 	return (
 		<>
 			<Navbar />
-			<div className='flex h-full pt-20'>
+			<div className='flex h-full pt-20 overflow-hidden'>
 				<Suspense fallback={<SidebarSkeleton />}>
 					<SideBar />
 				</Suspense>

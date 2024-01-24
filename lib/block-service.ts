@@ -12,6 +12,7 @@ async function _getBlockData(
 	const userDB = await db.user.findUnique({
 		where: { id }
 	})
+
 	if (!userDB) throw new Error('User not found')
 	return { userAuth, userDB }
 }
@@ -20,16 +21,15 @@ export const blockService = {
 		try {
 			const { userAuth, userDB } = await _getBlockData(id)
 			if (userDB.id === userAuth.id) return false
-			return Boolean(
-				db.block.findUnique({
-					where: {
-						blockerId_blockedId: {
-							blockerId: userDB.id,
-							blockedId: userAuth.id
-						}
+			const isBlock = await db.block.findUnique({
+				where: {
+					blockerId_blockedId: {
+						blockerId: userDB.id,
+						blockedId: userAuth.id
 					}
-				})
-			)
+				}
+			})
+			return Boolean(isBlock)
 		} catch (error) {
 			return false
 		}

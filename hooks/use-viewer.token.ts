@@ -17,7 +17,6 @@ export const useViewerToken = (hostIdentity: string): UseViewerTokenType => {
 	const [name, setName] = useState<string>('')
 	const [identity, setIdentity] = useState<string>('')
 	const [isLoading, setIsLoading] = useState<boolean>(false)
-
 	useEffect(() => {
 		setIsLoading(true)
 		const createToken = async () => {

@@ -38,8 +38,8 @@ export const ChatForm: React.FC<ChatFormProps> = props => {
 		if (isDelayed && !isDelayBlocked) {
 			setIsDelayBlocked(true)
 			setTimeout(() => {
-				setIsDelayBlocked(false)
 				onSubmit()
+				setIsDelayBlocked(false)
 			}, 3000)
 		} else onSubmit()
 	}

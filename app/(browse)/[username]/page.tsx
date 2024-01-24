@@ -8,7 +8,7 @@ type Params = {
 	params: { username: string }
 }
 export default async function PageUsername({ params: { username } }: Params) {
-	const user = await userService.getUserByUsername(username)
+	const user = await userService.getUserByUsername(username)	
 	if (!user || !user.stream) notFound()
 	const isFollowing = await followService.isFollowingUser(user.id)
 	const isBLocked = await blockService.isBlockedByUser(user.id)
