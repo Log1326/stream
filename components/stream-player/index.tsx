@@ -7,7 +7,6 @@ import {
 	AccordionTrigger
 } from '../ui/accordion'
 import { Chat, ChatSkeleton } from './chat'
-import { Stream, User } from '@prisma/client'
 import { Video, VideoSkeleton } from './video'
 import { VideoHeader, VideoHeaderSkeleton } from './video/video-header'
 
@@ -15,17 +14,13 @@ import { AboutCard } from './card/about-card'
 import { ChatToggle } from './chat/chat-header/chat-toggle'
 import { InfoCard } from './card/info-card'
 import { LiveKitRoom } from '@livekit/components-react'
+import { SelectedUserServiceType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { useChatSidebar } from '@/store/use-chat-sidebar'
 import { useViewerToken } from '@/hooks/use-viewer.token'
 
 interface StreamPlayerProps {
-	user: Additional<
-		User & {
-			stream: Nullable<Stream>
-			_count: { followedBy: number }
-		}
-	>
+	user:NonNullable<SelectedUserServiceType>
 	isFollowing: boolean
 }
 const serverUrl = process.env.NEXT_PUBLIC_LIVE_KIT_WS_URL as string
@@ -34,7 +29,7 @@ export const StreamPlayer: React.FC<StreamPlayerProps> = ({
 	isFollowing
 }) => {
 	const { identity, isLoading, isPending, name, token } = useViewerToken(
-		user.id
+		user?.id
 	)
 	const { isCollapsed } = useChatSidebar(state => state)
 

@@ -29,7 +29,7 @@ export const Wrapper: React.FC<PropsWithChildren> = ({ children }) => {
 		<aside
 			className={cn(
 				`fixed left-0 w-60 h-full bg-background flex 
-			flex-col border-r border-[#2D2E35] z-50 transition-all duration-500`,
+			flex-col items-center justify-start pl-2 pt-4 border-r border-[#2D2E35]  z-50 transition-all duration-500`,
 				{ 'w-20': isCollapsed }
 			)}
 		>

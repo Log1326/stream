@@ -1,13 +1,14 @@
-import { Block, User } from '@prisma/client'
+import {
+	BlockedOnlyUsernameType,
+	UserFieldsType
+} from './types';
 
-import { authService } from './auth-service'
-import { db } from './db'
-
-type BlockedResponse = Block & { blocked: User }
+import { authService } from './auth-service';
+import { db } from './db';
 
 async function _getBlockData(
 	id: string
-): Promise<{ userAuth: User; userDB: User }> {
+): Promise<{ userAuth: UserFieldsType; userDB: UserFieldsType }> {
 	const userAuth = await authService.getAuth()
 	const userDB = await db.user.findUnique({
 		where: { id }
@@ -34,7 +35,7 @@ export const blockService = {
 			return false
 		}
 	},
-	async blockUser(id: string): Promise<BlockedResponse> {
+	async blockUser(id: string): Promise<BlockedOnlyUsernameType> {
 		const { userAuth, userDB } = await _getBlockData(id)
 		if (userAuth.id === id) throw new Error('Cannot block yourself')
 		const existingBlock = await db.block.findUnique({
@@ -48,10 +49,14 @@ export const blockService = {
 		if (existingBlock) throw new Error('Already blocked')
 		return db.block.create({
 			data: { blockerId: userAuth.id, blockedId: userDB.id },
-			include: { blocked: true }
+			select: {
+				blocked: { select: { username: true } },
+				blockerId: true,
+				blockedId: true
+			}
 		})
 	},
-	async unblockUser(id: string): Promise<BlockedResponse> {
+	async unblockUser(id: string): Promise<BlockedOnlyUsernameType> {
 		const { userAuth, userDB } = await _getBlockData(id)
 		if (userAuth.id === id) throw new Error('Cannot unblock yourself')
 		const existingBlock = await db.block.findUnique({
@@ -65,7 +70,11 @@ export const blockService = {
 		if (!existingBlock) throw new Error('Not blocked')
 		return db.block.delete({
 			where: { id: existingBlock.id },
-			include: { blocked: true }
+			select: {
+				blocked: { select: { username: true } },
+				blockerId: true,
+				blockedId: true
+			}
 		})
 	}
 }

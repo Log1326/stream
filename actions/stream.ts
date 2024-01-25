@@ -15,7 +15,7 @@ type PickStream = Partial<
 		| 'thumbnailUrl'
 	>
 >
-export const updateStream = async (values: PickStream): Promise<Stream> => {
+export const updateStream = async (values: PickStream): Promise<void> => {
 	try {
 		const userAuth = await authService.getAuth()
 		const streamFromDB = await streamService.getStreamByUserId(userAuth.id)
@@ -27,14 +27,13 @@ export const updateStream = async (values: PickStream): Promise<Stream> => {
 			isChatDelayed: values.isChatDelayed,
 			thumbnailUrl: values.thumbnailUrl
 		}
-		const stream = await db.stream.update({
+		await db.stream.update({
 			where: { id: streamFromDB.id },
 			data: { ...validData }
 		})
 		revalidatePath(`/u/${userAuth.username}/chat`)
 		revalidatePath(`/u/${userAuth.username}`)
 		revalidatePath(`/${userAuth.username}/chat`)
-		return stream
 	} catch (error) {
 		throw new Error('internal Error')
 	}

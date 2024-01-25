@@ -1,13 +1,10 @@
 'use server'
 
-import { Follow, User } from '@prisma/client'
-
+import { FollowerUserType } from '@/lib/types'
 import { followService } from '@/lib/follow-service'
 import { revalidatePath } from 'next/cache'
 
-export async function onFollow(
-	id: string
-): Promise<Follow & { following: User; follower: User }> {
+export async function onFollow(id: string): Promise<FollowerUserType> {
 	try {
 		const followedUser = await followService.followUser(id)
 		revalidatePath('/')
@@ -18,9 +15,7 @@ export async function onFollow(
 		throw new Error('Internal Error')
 	}
 }
-export async function onUnFollowed(
-	id: string
-): Promise<Follow & { following: User }> {
+export async function onUnFollowed(id: string): Promise<FollowerUserType> {
 	try {
 		const unFollowedUser = await followService.unFollowUser(id)
 		revalidatePath('/')

@@ -1,13 +1,10 @@
 'use server'
 
-import { Block, User } from '@prisma/client'
-
+import { BlockedOnlyUsernameType } from '@/lib/types'
 import { RoomServiceClient } from 'livekit-server-sdk'
 import { authService } from '@/lib/auth-service'
 import { blockService } from '@/lib/block-service'
 import { revalidatePath } from 'next/cache'
-
-type BlockedResponse = (Block & { blocked: User }) | undefined
 
 const apiUrl = process.env.LIVE_KIT_URL as string
 const apiKey = process.env.LIVE_KIT_API_KEY as string
@@ -15,7 +12,9 @@ const apiSecret = process.env.LIVE_KIT_API_SECRET_KEY as string
 
 const roomService = new RoomServiceClient(apiUrl, apiKey, apiSecret)
 
-export const onBlock = async (id: string): Promise<BlockedResponse> => {
+export const onBlock = async (
+	id: string
+): Promise<BlockedOnlyUsernameType | undefined> => {
 	const userAuth = await authService.getAuth()
 	let blockUser
 	try {
@@ -32,7 +31,9 @@ export const onBlock = async (id: string): Promise<BlockedResponse> => {
 	revalidatePath(`/u/${userAuth.username}/community`)
 	return blockUser
 }
-export const onUnblock = async (id: string): Promise<BlockedResponse> => {
+export const onUnblock = async (
+	id: string
+): Promise<BlockedOnlyUsernameType> => {
 	const unblockUser = await blockService.unblockUser(id)
 	revalidatePath('/')
 	if (unblockUser) revalidatePath(`/${unblockUser.blocked.username}`)

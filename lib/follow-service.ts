@@ -1,12 +1,17 @@
-import { Follow, Stream, User } from '@prisma/client'
+import {
+	FollowType,
+	FollowerUserType,
+	GetFollowUserType,
+	UserFieldsType
+} from './types'
 
 import { authService } from './auth-service'
 import { db } from './db'
 
 async function _findUniqueById(id: string): Promise<{
-	user: User
-	anotherUser: User
-	existingFollow: Follow | null
+	user: UserFieldsType
+	anotherUser: UserFieldsType
+	existingFollow: FollowType
 }> {
 	const user = await authService.getAuth()
 	const anotherUser = await db.user.findUnique({ where: { id } })
@@ -27,19 +32,21 @@ export const followService = {
 			return false
 		}
 	},
-	async followUser(
-		id: string
-	): Promise<Follow & { following: User; follower: User }> {
+	async followUser(id: string): Promise<FollowerUserType> {
 		const { anotherUser, user, existingFollow } = await _findUniqueById(id)
 		if (anotherUser.id === user.id)
 			throw new Error('Cannot follow yourself')
 		if (existingFollow) throw new Error('Already following')
 		return db.follow.create({
 			data: { followerId: user.id, followingId: anotherUser.id },
-			include: { follower: true, following: true }
+			select: {
+				following: { select: { username: true } },
+				followerId: true,
+				followingId: true
+			}
 		})
 	},
-	async unFollowUser(id: string): Promise<Follow & { following: User }> {
+	async unFollowUser(id: string): Promise<FollowerUserType> {
 		const { anotherUser, user, existingFollow } = await _findUniqueById(id)
 		if (anotherUser.id === user.id)
 			throw new Error('Cannot follow yourself')
@@ -49,16 +56,7 @@ export const followService = {
 			include: { following: true }
 		})
 	},
-	async getFollowedUser(): Promise<
-		| Additional<
-				Follow & {
-					following: User & {
-						stream: Nullable<Pick<Stream, 'isLive'>>
-					}
-				}
-		  >[]
-		| []
-	> {
+	async getFollowedUser(): Promise<GetFollowUserType[]> {
 		try {
 			const user = await authService.getAuth()
 			return db.follow.findMany({
@@ -66,9 +64,16 @@ export const followService = {
 					followerId: user.id,
 					following: { blocking: { none: { blockedId: user.id } } }
 				},
-				include: {
+				select: {
 					following: {
-						include: { stream: { select: { isLive: true } } }
+						select: {
+							stream: { select: { isLive: true } },
+							id: true,
+							username: true,
+							bio: true,
+							imageUrl: true,
+							externalUserId:true
+						}
 					}
 				}
 			})

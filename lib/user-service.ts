@@ -1,32 +1,44 @@
-import { Stream, User } from '@prisma/client'
+import { GetUserByIdType, SelectedUserServiceType } from './types'
 
 import { db } from './db'
 
+const selectUser = {
+	username: true,
+	id: true,
+	imageUrl: true,
+	bio: true,
+	externalUserId: true,
+	stream: {
+		select: {
+			name: true,
+			thumbnailUrl: true,
+			isChatEnabled: true,
+			isChatDelayed: true,
+			isChatFollowersOnly: true
+		}
+	},
+	_count: { select: { followedBy: true } }
+}
 export const userService = {
-	async getUserByUsername(username: string): Promise<
-		Nullable<
-			Additional<
-				User & {
-					stream: Nullable<Stream>
-					_count: { followedBy: number }
-				}
-			>
-		>
-	> {
+	async getUserByUsername(
+		username: string
+	): Promise<SelectedUserServiceType> {
 		return db.user.findUnique({
 			where: { username },
-			include: {
-				stream: true,
-				_count: { select: { followedBy: true } }
-			}
+			select: selectUser
 		})
 	},
-	async getUserById(
-		id: string
-	): Promise<Nullable<User & { stream: Nullable<Stream> }>> {
+	async getUserById(id: string): Promise<GetUserByIdType> {
 		return db.user.findUnique({
 			where: { id },
-			include: { stream: true }
+			select: {
+				stream: { select: { isLive: true } },
+				id: true,
+				username: true,
+				bio: true,
+				imageUrl: true,
+				externalUserId: true
+			}
 		})
 	}
 }

@@ -1,15 +1,11 @@
-import { Stream, User } from '@prisma/client'
-
+import { RecommendedType } from './types'
 import { authService } from './auth-service'
 import { db } from './db'
 
-export const getRecommended = async (): Promise<
-	Additional<User & { stream: Nullable<Pick<Stream, 'isLive'>> }>[]
-> => {
+export const getRecommended = async (): Promise<RecommendedType[]> => {
 	let userId
 	try {
-		const userAuth = await authService.getAuth()
-		userId = userAuth.id
+		userId = (await authService.getAuth()).id
 	} catch (error) {
 		userId = null
 	}
@@ -22,12 +18,26 @@ export const getRecommended = async (): Promise<
 					{ NOT: { blocking: { some: { blockedId: userId } } } }
 				]
 			},
-			include: { stream: { select: { isLive: true } } },
+			select: {
+				id: true,
+				bio: true,
+				imageUrl: true,
+				username: true,
+				externalUserId: true,
+				stream: { select: { isLive: true } }
+			},
 			orderBy: { createdAt: 'desc' }
 		})
 	else
 		return db.user.findMany({
 			orderBy: { createdAt: 'desc' },
-			include: { stream: { select: { isLive: true } } }
+			select: {
+				id: true,
+				bio: true,
+				imageUrl: true,
+				username: true,
+				externalUserId: true,
+				stream: { select: { isLive: true } }
+			}
 		})
 }

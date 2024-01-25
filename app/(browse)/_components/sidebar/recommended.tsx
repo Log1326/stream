@@ -1,13 +1,12 @@
 'use client'
 
-import { Stream, User } from '@prisma/client'
 import { UserItem, UserItemSkeleton } from './user-item'
 
-import { getRecommended } from '@/lib/recommended-service'
+import { RecommendedType } from '@/lib/types'
 import { useSidebar } from '@/store/use-sidebar'
 
 interface RecommendedProps {
-	data: Awaited<ReturnType<typeof getRecommended>>
+	data: RecommendedType[]
 }
 export const Recommended: React.FC<RecommendedProps> = ({ data }) => {
 	const { isCollapsed } = useSidebar(state => state)

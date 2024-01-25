@@ -2,14 +2,14 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { LiveBadge } from '@/components/live-badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import { User } from '@prisma/client'
 import { UserAvatar } from '@/components/user-avatar'
+import { UserFieldsType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { useSidebar } from '@/store/use-sidebar'
 
 interface UserItemProps {
-	user: User
+	user: UserFieldsType
 	isLive?: boolean
 }
 export const UserItem: React.FC<UserItemProps> = ({ user, isLive }) => {
