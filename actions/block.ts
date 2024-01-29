@@ -34,8 +34,8 @@ export const onBlock = async (
 export const onUnblock = async (
 	id: string
 ): Promise<BlockedOnlyUsernameType> => {
+	const username = (await authService.getAuth()).username
 	const unblockUser = await blockService.unblockUser(id)
-	revalidatePath('/')
-	if (unblockUser) revalidatePath(`/${unblockUser.blocked.username}`)
+	revalidatePath(`/u/${username}/community`)
 	return unblockUser
 }

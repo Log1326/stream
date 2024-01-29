@@ -34,7 +34,11 @@ export type BlockedOnlyUsernameType = {
 	blockerId: string
 	blockedId: string
 } & { blocked: Pick<User, 'username'> }
-
+export type GetBlockedAllUsersType = Additional<
+	Pick<Block, 'id'> & {
+		blocked: Pick<User, 'id' | 'username' | 'imageUrl' | 'createdAt'>
+	}
+>
 //follow service
 export type FollowerUserType = Pick<Follow, 'followerId' | 'followingId'> & {
 	following: Pick<User, 'username'>
@@ -65,5 +69,11 @@ export type GetStreamByUserIdType = Nullable<
 export type StreamsTypes = Additional<
 	Pick<Stream, 'name' | 'isLive' | 'thumbnailUrl' | 'id'> & {
 		user: Pick<User, 'username' | 'imageUrl'>
+	}
+>
+// search service
+export type SearchGetResults = Additional<
+	Pick<Stream, 'id' | 'thumbnailUrl' | 'isLive' | 'name' | 'updatedAt'> & {
+		user: Pick<User, 'id' | 'username' | 'imageUrl'>
 	}
 >

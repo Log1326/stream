@@ -1,10 +1,11 @@
 import {
 	BlockedOnlyUsernameType,
+	GetBlockedAllUsersType,
 	UserFieldsType
-} from './types';
+} from './types'
 
-import { authService } from './auth-service';
-import { db } from './db';
+import { authService } from './auth-service'
+import { db } from './db'
 
 async function _getBlockData(
 	id: string
@@ -74,6 +75,23 @@ export const blockService = {
 				blocked: { select: { username: true } },
 				blockerId: true,
 				blockedId: true
+			}
+		})
+	},
+	async getBlockedAllUsers(): Promise<GetBlockedAllUsersType[]> {
+		const userAuthId = (await authService.getAuth()).id
+		return db.block.findMany({
+			where: { blockerId: userAuthId },
+			select: {
+				id: true,
+				blocked: {
+					select: {
+						id: true,
+						username: true,
+						imageUrl: true,
+						createdAt: true
+					}
+				}
 			}
 		})
 	}
