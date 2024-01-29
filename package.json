@@ -4,11 +4,11 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
+		"global:dev": " ngrok http --domain=loyal-longhorn-notably.ngrok-free.app 3000",
 		"dev:turbo": "next dev --turbo",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"global:dev": " ngrok http --domain=loyal-longhorn-notably.ngrok-free.app 3000",
 		"postinstall": "prisma generate"
 	},
 	"dependencies": {
