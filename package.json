@@ -37,7 +37,7 @@
 		"livekit-client": "^1.15.8",
 		"livekit-server-sdk": "^1.2.7",
 		"lucide-react": "^0.302.0",
-		"next": "14.0.4",
+		"next": "14.2.13",
 		"next-themes": "^0.2.1",
 		"node": "^20.10.0",
 		"prisma": "^5.7.1",
